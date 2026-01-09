@@ -1,0 +1,46 @@
+.auth-container {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+  background-color: white;
+  margin: 10px;
+}
+
+.auth-container h2 {
+  margin-bottom: 15px;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 8px; 
+  margin: 8px 0;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.auth-container p {
+  margin-top: 10px;
+  color: blue;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-center {
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f2f2f2;
+}
+
