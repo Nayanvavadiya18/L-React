@@ -3,6 +3,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import "./App.css";
+import Users from "./components/Users";
 
 function App() {
   return (
