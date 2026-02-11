@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function Users() {
+function Users_from_api() {
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
 

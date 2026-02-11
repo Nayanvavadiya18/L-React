@@ -3,7 +3,8 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import "./App.css";
-import Users from "./components/Users";
+import Users from "./Pages/Users";
+
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </BrowserRouter>
   );
