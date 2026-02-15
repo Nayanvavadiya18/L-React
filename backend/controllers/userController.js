@@ -11,9 +11,27 @@ exports.createUser = async (req, res) => {
       data: user,
     });
   } catch (error) {
+    console.error("createUser error:", error);
+    // Handle duplicate key (unique) error from MongoDB
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: "Duplicate field value entered",
+      });
+    }
+
+    // Handle Mongoose validation errors
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    // Fallback
     res.status(400).json({
       success: false,
-      message: error.message,
+      message: error.message || "Invalid request",
     });
   }
 };

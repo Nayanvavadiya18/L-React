@@ -1,30 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Auth.css";
 
 function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError("");
 
         // Condition 1: length
         if (password.length < 6) {
-            alert("Password must be at least 6 characters");
+            setError("Password must be at least 6 characters");
             return;
         }
 
         // Condition 2: number
         if (!/\d/.test(password)) {
-            alert("Password must contain a number");
+            setError("Password must contain a number");
             return;
         }
 
         // Condition 3: letter
         if (!/[a-zA-Z]/.test(password)) {
-            alert("Password must contain a letter");
+            setError("Password must contain a letter");
             return;
         }
 
@@ -34,39 +35,62 @@ function Login() {
         });
     };
 
-
     return (
-        <div className="page-center">
-            <div className="auth-container">
-                <h2>Login</h2>
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 px-4">
+            <div className="w-full max-w-md">
+                <div className="bg-white rounded-2xl shadow-2xl p-8">
+                    <div className="text-center mb-8">
+                        <h1 className="text-4xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+                        <p className="text-gray-600">Sign in to your account</p>
+                    </div>
 
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="email"
-                        placeholder="Enter Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                    {error && (
+                        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+                            {error}
+                        </div>
+                    )}
 
-                    <br />
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="form-group">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="input-field"
+                                required
+                            />
+                        </div>
 
-                    <input
-                        type="password"
-                        placeholder="Enter Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                        <div className="form-group">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="input-field"
+                                required
+                            />
+                        </div>
 
-                    <br /><br />
+                        <button type="submit" className="btn-primary w-full mt-6">
+                            Sign In
+                        </button>
+                    </form>
 
-                    <button type="submit">Login</button>
-                </form>
-
-                <p onClick={() => navigate("/signup")}>
-                    Go to Signup
-                </p>
+                    <div className="mt-6 text-center">
+                        <p className="text-gray-600">Don't have an account? 
+                            <button 
+                                onClick={() => navigate("/signup")}
+                                className="ml-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                            >
+                                Sign Up
+                            </button>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
