@@ -17,6 +17,7 @@ function Users() {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchNumber, setSearchNumber] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // "", "asc", "desc"
 
 
   // Fetch users
@@ -160,6 +161,15 @@ function Users() {
               value={searchNumber}
               onChange={(e) => setSearchNumber(e.target.value)}
             />
+            <select
+              className="mb-4 px-4 py-2 border border-gray-300 rounded-lg w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+            >
+              <option value="">Sort by Name (Default)</option>
+              <option value="asc">A - Z</option>
+              <option value="desc">Z - A</option>
+            </select>
             <table className="w-full">
 
               <thead className="bg-gray-100 border-b border-gray-200">
@@ -173,12 +183,21 @@ function Users() {
               <tbody className="divide-y divide-gray-200">
                 {users
                   .filter((user) =>
-                    user.mobile.includes(searchNumber)
+                    (user.mobile || "").toString().includes(searchNumber)
                   )
-
                   .filter((user) =>
-                    user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+                    (user.fullName || "").toLowerCase().includes(searchTerm.toLowerCase())
                   )
+                  .sort((a, b) => {
+                    if (!sortOrder) return 0;
+                    const nameA = (a.fullName || "").toLowerCase();
+                    const nameB = (b.fullName || "").toLowerCase();
+                    if (sortOrder === "asc") {
+                      return nameA > nameB ? 1 : -1;
+                    } else {
+                      return nameA < nameB ? 1 : -1;
+                    }
+                  })
                   .map((user) => (
                     <tr key={user._id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 text-sm text-gray-800 font-medium">{user.fullName}</td>
